@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -25,12 +26,12 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public"))); // Serve static files
 
 // MongoDB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/electionDB", {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
 .then(() => console.log("MongoDB Connected 🚀"))
-.catch(err => console.error("MongoDB connection error:", err));
+.catch((err) => console.error("MongoDB connection error:", err));
 
 // Election Results Schema
 const electionResultSchema = new mongoose.Schema({
