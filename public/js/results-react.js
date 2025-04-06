@@ -17,7 +17,7 @@ function ElectionResults() {
         console.log("Fetching election years...");
         const fetchElectionYears = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/election-results');
+                const response = await fetch('/api/election-results');
                 console.log("Response status:", response.status);
                 
                 if (!response.ok) throw new Error('Failed to fetch election years');
@@ -47,7 +47,7 @@ function ElectionResults() {
         const fetchElectionResult = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`http://localhost:5000/api/election-results/${selectedYear}`);
+                const response = await fetch(`/api/election-results/${selectedYear}`);
                 if (!response.ok) throw new Error('Failed to fetch election result');
                 const data = await response.json();
                 console.log("Fetched result data:", data);

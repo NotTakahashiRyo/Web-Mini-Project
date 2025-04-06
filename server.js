@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 // Fix: Proper CORS configuration
 const corsOptions = {
-  origin: 'http://localhost:5000',  // Make sure this matches your frontend URL
+  origin: 'https://web-mini-project.onrender.com', // or wherever your frontend lives. Make sure this matches your frontend URL
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204

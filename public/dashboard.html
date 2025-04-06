@@ -183,7 +183,7 @@
             
             // Fetch fresh user data from server
             try {
-                const response = await fetch(`http://localhost:5000/api/users/${user._id}`);
+                const response = await fetch(`/api/users/${user._id}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch user data");
                 }
@@ -250,7 +250,7 @@
                 }
 
                 try {
-                    const response = await fetch(`http://localhost:5000/api/users/${user._id}`, {
+                    const response = await fetch(`/api/users/${user._id}`, {
                         method: "PUT",
                         headers: {
                             "Content-Type": "application/json"
@@ -293,7 +293,7 @@
             confirmDeleteBtn.addEventListener("click", async () => {
                 const user = JSON.parse(localStorage.getItem("user"));
                 try {
-                    const response = await fetch(`http://localhost:5000/api/users/${user._id}`, {
+                    const response = await fetch(`/api/users/${user._id}`, {
                         method: "DELETE"
                     });
                     
