@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Registration - Election Commission of India</title>
+    <style>
+        :root {
+            --primary-color: #800000;
+            --primary-dark: #660000;
+            --primary-light: #ffebee;
+            --accent-color: #ffc107;
+            --text-dark: #333;
+            --text-light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+            --primary: #800000; 
+            --primary-dark: #660000; 
+            --secondary: #ffcc00; 
+            --accent: #003366; 
+            --light: #f8f9fa; 
+            --dark: #212529; 
+            --success: #28a745; 
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #f8f6f2;
+        }
+        
+        .header {
+            background-color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header img {
+            height: 60px;
+            width: auto;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav a {
+            color: #800000;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav a:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .nav a:hover::after {
+            width: 100%;
+        }
+        
+        .news-bar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .news-content {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: scroll 20s linear infinite;
+        }
+        
+        .news-content span {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('photo-1507676184212-d03ab07a01bf.jpeg') center/cover no-repeat;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .registration-container {
+            width: 90%;
+            max-width: 500px;
+            margin: -50px auto 50px;
+            padding: 30px;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .registration-container h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .registration-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.2);
+            outline: none;
+        }
+        
+        .form-group .error {
+            color: var(--error-color);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-group .success {
+            color: var(--success-color);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-group.error input {
+            border-color: var(--error-color);
+        }
+        
+        .form-group.success input {
+            border-color: var(--success-color);
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 38px;
+            font-size: 18px;
+        }
+        
+        .error-icon {
+            color: var(--error-color);
+            display: none;
+        }
+        
+        .success-icon {
+            color: var(--success-color);
+            display: none;
+        }
+        
+        .form-group.error .error-icon {
+            display: block;
+        }
+        
+        .form-group.success .success-icon {
+            display: block;
+        }
+        
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 15px;
+        }
+        
+        .login-link:hover {
+            text-decoration: underline;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 40px 5%;
+            background-color: white;
+        }
+        
+        .feature-card {
+            width: 300px;
+            margin: 20px;
+            text-align: center;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            object-fit: contain;
+        }
+        
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .footer {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    padding: 50px 0 20px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--secondary);
+}
+
+.footer-section p, .footer-section a {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 10px;
+    display: block;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: white;
+    transform: translateX(5px);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background: var(--secondary);
+    color: var(--primary);
+    transform: translateY(-5px);
+}
+
+.copyright {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .nav {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .registration-container {
+                padding: 20px;
+                margin-top: -30px;
+            }
+            
+            .feature-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <a href="website.html">
+            <img src="eci-logo.png" alt="Election Commission of India">
+        </a>
+        <div class="nav">
+            <a href="services.html">Services</a>
+            <a href="results.html">Results</a>
+            <a href="candidate.html">Candidates</a>
+            <a href="login.html">Login</a>
+        </div>
+    </div>
+    
+    <div class="news-bar">
+        <div class="news-content">
+            <span>LATEST:</span> Voter registration deadline is approaching on June 30th, 2025. Register now to exercise your democratic right! • National Voters' Day celebration on January 25th in all district offices • New online voter verification portal launched • Special registration camps for senior citizens and differently-abled voters this weekend
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1>Be a Part of Democracy</h1>
+        <p>Register as a voter and make your voice count in the world's largest democracy</p>
+    </div>
+
+    <div class="registration-container">
+        <h2>Voter Registration</h2>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <div class="input-icon error-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="input-icon success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <input type="text" id="fullname" placeholder="Enter your full name as per Aadhaar" required>
+                <div class="error" id="nameError">Name should contain only letters and spaces</div>
+                <div class="success" id="nameSuccess">Name looks good!</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-icon error-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="input-icon success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <input type="email" id="email" placeholder="Valid email address" required>
+                <div class="error" id="emailError">Please enter a valid email address</div>
+                <div class="success" id="emailSuccess">Email looks good!</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Create Password</label>
+                <div class="input-icon error-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="input-icon success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <input type="password" id="password" placeholder="Minimum 8 characters with mix of letters, numbers and symbols" required>
+                <div class="error" id="passwordError">Password must contain 1 uppercase, 1 lowercase, 1 number, and 1 special character</div>
+                <div class="success" id="passwordSuccess">Strong password!</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+                <div class="input-icon error-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="input-icon success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <input type="tel" id="mobile" placeholder="10-digit mobile number" required>
+                <div class="error" id="mobileError">Please enter a valid 10-digit mobile number</div>
+                <div class="success" id="mobileSuccess">Mobile number is valid</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="aadhaar">Aadhaar Card Number</label>
+                <div class="input-icon error-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="input-icon success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <input type="text" id="aadhaar" placeholder="12-digit Aadhaar number" required>
+                <div class="error" id="aadhaarError">Please enter a valid 12-digit Aadhaar number</div>
+                <div class="success" id="aadhaarSuccess">Aadhaar number is valid</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Address</label>
+                <div class="input-icon error-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="input-icon success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <input type="text" id="address" placeholder="Current residential address" required>
+                <div class="error" id="addressError">Please enter a valid address (minimum 10 characters)</div>
+                <div class="success" id="addressSuccess">Address looks good!</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <div class="input-icon error-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="input-icon success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <input type="date" id="dob" required>
+                <div class="error" id="dobError">You must be at least 18 years old to register</div>
+                <div class="success" id="dobSuccess">Date of birth is valid</div>
+            </div>
+            
+            <button type="submit" class="btn" id="submitBtn" disabled>Register Now</button>
+            
+            <a href="login.html" class="login-link">Already registered? Login here</a>
+        </form>
+    </div>
+    
+    <div class="features">
+        <div class="feature-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1570/1570887.png" alt="Easy Registration">
+            <h3>Easy Registration</h3>
+            <p>Complete your voter registration in just a few minutes using our simple online process.</p>
+        </div>
+        
+        <div class="feature-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1570/1570938.png" alt="Track Application">
+            <h3>Track Application</h3>
+            <p>Monitor your registration status in real-time and receive updates via SMS and email.</p>
+        </div>
+        
+        <div class="feature-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="Find Polling Booth">
+            <h3>Find Polling Booth</h3>
+            <p>Locate your nearest polling station with our interactive map feature.</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About ECI</h3>
+                <p>The Election Commission of India is an autonomous constitutional authority responsible for administering election processes in India.</p>
+                <p>Established in 1950, it ensures free and fair elections across the country.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="registraiton.html"><i class="fas fa-chevron-right"></i> Voter Registration</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> Election Schedule</a>
+                <a href="candidate.html"><i class="fas fa-chevron-right"></i> Candidate List</a>
+                <a href="results.html"><i class="fas fa-chevron-right"></i> Results Archive</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Nirvachan Sadan, Ashoka Road, New Delhi</p>
+                <p><i class="fas fa-phone"></i> 011-23717391</p>
+                <p><i class="fas fa-envelope"></i> info@eci.gov.in</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Election Commission of India. All Rights Reserved.
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Form elements
+            const fullname = document.getElementById('fullname');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const mobile = document.getElementById('mobile');
+            const aadhaar = document.getElementById('aadhaar');
+            const address = document.getElementById('address');
+            const dob = document.getElementById('dob');
+            
+            // Error/Success elements
+            const nameError = document.getElementById('nameError');
+            const nameSuccess = document.getElementById('nameSuccess');
+            const emailError = document.getElementById('emailError');
+            const emailSuccess = document.getElementById('emailSuccess');
+            const passwordError = document.getElementById('passwordError');
+            const passwordSuccess = document.getElementById('passwordSuccess');
+            const mobileError = document.getElementById('mobileError');
+            const mobileSuccess = document.getElementById('mobileSuccess');
+            const aadhaarError = document.getElementById('aadhaarError');
+            const aadhaarSuccess = document.getElementById('aadhaarSuccess');
+            const addressError = document.getElementById('addressError');
+            const addressSuccess = document.getElementById('addressSuccess');
+            const dobError = document.getElementById('dobError');
+            const dobSuccess = document.getElementById('dobSuccess');
+            
+            // Form group elements for styling
+            const nameGroup = fullname.closest('.form-group');
+            const emailGroup = email.closest('.form-group');
+            const passwordGroup = password.closest('.form-group');
+            const mobileGroup = mobile.closest('.form-group');
+            const aadhaarGroup = aadhaar.closest('.form-group');
+            const addressGroup = address.closest('.form-group');
+            const dobGroup = dob.closest('.form-group');
+            
+            // Validation functions
+            function validateName() {
+                const nameRegex = /^[a-zA-Z\s]+$/;
+                if (!nameRegex.test(fullname.value)) {
+                    nameError.style.display = 'block';
+                    nameSuccess.style.display = 'none';
+                    nameGroup.classList.add('error');
+                    nameGroup.classList.remove('success');
+                    return false;
+                } else {
+                    nameError.style.display = 'none';
+                    nameSuccess.style.display = 'block';
+                    nameGroup.classList.remove('error');
+                    nameGroup.classList.add('success');
+                    return true;
+                }
+            }
+            
+            function validateEmail() {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value)) {
+                    emailError.style.display = 'block';
+                    emailSuccess.style.display = 'none';
+                    emailGroup.classList.add('error');
+                    emailGroup.classList.remove('success');
+                    return false;
+                } else {
+                    emailError.style.display = 'none';
+                    emailSuccess.style.display = 'block';
+                    emailGroup.classList.remove('error');
+                    emailGroup.classList.add('success');
+                    return true;
+                }
+            }
+            
+            function validatePassword() {
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            const passwordValue = password.value;
+            
+            if (!passwordValue) {
+                passwordError.textContent = "Password is required";
+                passwordError.style.display = 'block';
+                passwordSuccess.style.display = 'none';
+                passwordGroup.classList.add('error');
+                passwordGroup.classList.remove('success');
+                return false;
+            }
+            
+            if (!passwordRegex.test(passwordValue)) {
+                passwordError.textContent = "Password must contain: 1 uppercase, 1 lowercase, 1 number, and 1 special character (@$!%*?&)";
+                passwordError.style.display = 'block';
+                passwordSuccess.style.display = 'none';
+                passwordGroup.classList.add('error');
+                passwordGroup.classList.remove('success');
+                return false;
+            } else {
+                passwordError.style.display = 'none';
+                passwordSuccess.style.display = 'block';
+                passwordGroup.classList.remove('error');
+                passwordGroup.classList.add('success');
+                return true;
+            }
+        }
+            
+            function validateMobile() {
+                const mobileRegex = /^[0-9]{10}$/;
+                if (!mobileRegex.test(mobile.value)) {
+                    mobileError.style.display = 'block';
+                    mobileSuccess.style.display = 'none';
+                    mobileGroup.classList.add('error');
+                    mobileGroup.classList.remove('success');
+                    return false;
+                } else {
+                    mobileError.style.display = 'none';
+                    mobileSuccess.style.display = 'block';
+                    mobileGroup.classList.remove('error');
+                    mobileGroup.classList.add('success');
+                    return true;
+                }
+            }
+            
+            function validateAadhaar() {
+                const aadhaarRegex = /^[0-9]{12}$/;
+                if (!aadhaarRegex.test(aadhaar.value)) {
+                    aadhaarError.style.display = 'block';
+                    aadhaarSuccess.style.display = 'none';
+                    aadhaarGroup.classList.add('error');
+                    aadhaarGroup.classList.remove('success');
+                    return false;
+                } else {
+                    aadhaarError.style.display = 'none';
+                    aadhaarSuccess.style.display = 'block';
+                    aadhaarGroup.classList.remove('error');
+                    aadhaarGroup.classList.add('success');
+                    return true;
+                }
+            }
+            
+            function validateAddress() {
+                if (address.value.trim().length < 10) {
+                    addressError.style.display = 'block';
+                    addressSuccess.style.display = 'none';
+                    addressGroup.classList.add('error');
+                    addressGroup.classList.remove('success');
+                    return false;
+                } else {
+                    addressError.style.display = 'none';
+                    addressSuccess.style.display = 'block';
+                    addressGroup.classList.remove('error');
+                    addressGroup.classList.add('success');
+                    return true;
+                }
+            }
+            
+            function validateDOB() {
+                if (!dob.value) {
+                    dobError.style.display = 'block';
+                    dobSuccess.style.display = 'none';
+                    dobGroup.classList.add('error');
+                    dobGroup.classList.remove('success');
+                    return false;
+                }
+                
+                const today = new Date();
+                const birthDate = new Date(dob.value);
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                
+                if (age < 18) {
+                    dobError.style.display = 'block';
+                    dobSuccess.style.display = 'none';
+                    dobGroup.classList.add('error');
+                    dobGroup.classList.remove('success');
+                    return false;
+                } else {
+                    dobError.style.display = 'none';
+                    dobSuccess.style.display = 'block';
+                    dobGroup.classList.remove('error');
+                    dobGroup.classList.add('success');
+                    return true;
+                }
+            }
+            
+            function validateForm() {
+                const isNameValid = validateName();
+                const isEmailValid = validateEmail();
+                const isPasswordValid = validatePassword();
+                const isMobileValid = validateMobile();
+                const isAadhaarValid = validateAadhaar();
+                const isAddressValid = validateAddress();
+                const isDOBValid = validateDOB();
+                
+                submitBtn.disabled = !(isNameValid && isEmailValid && isPasswordValid && 
+                                      isMobileValid && isAadhaarValid && isAddressValid && isDOBValid);
+            }
+            
+            // Event listeners for real-time validation
+            fullname.addEventListener('input', validateName);
+            email.addEventListener('input', validateEmail);
+            password.addEventListener('input', validatePassword);
+            mobile.addEventListener('input', validateMobile);
+            aadhaar.addEventListener('input', validateAadhaar);
+            address.addEventListener('input', validateAddress);
+            dob.addEventListener('change', validateDOB);
+            
+            // Validate form on any change
+            form.addEventListener('input', validateForm);
+            
+            // Form submission
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                if (validateName() && validateEmail() && validatePassword() && 
+                    validateMobile() && validateAadhaar() && validateAddress() && validateDOB()) {
+                    
+                    try {
+                        const formData = {
+                            name: fullname.value,
+                            email: email.value,
+                            password: password.value,
+                            mobileNumber: mobile.value,
+                            aadharNumber: aadhaar.value,
+                            address: address.value,
+                            dob: dob.value
+                        };
+                        
+                        const response = await fetch('http://localhost:5000/api/users/register', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (response.ok) {
+                            alert('Registration successful! You can now login.');
+                            window.location.href = 'login.html';
+                        } else {
+                            alert(data.error || 'Registration failed. Please try again.');
+                        }
+                    } catch (err) {
+                        console.error('Registration error:', err);
+                        alert('An error occurred during registration. Please try again.');
+                    }
+                } else {
+                    // Scroll to the first error
+                    const firstError = document.querySelector('.error[style="display: block;"]');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        // Add shake animation to highlight the error
+                        firstError.closest('.form-group').classList.add('shake');
+                        setTimeout(() => {
+                            firstError.closest('.form-group').classList.remove('shake');
+                        }, 500);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

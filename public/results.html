@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results - Election Commission of India</title>
+    <link rel="stylesheet" href="styles_website.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Load React and ReactDOM with specific versions -->
+    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    
+    <!-- Load Babel -->
+    <script src="https://unpkg.com/@babel/standalone@7.21.4/babel.min.js"></script>
+    
+    <!-- Load Chart.js directly - No need for ReactChartJS2 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    
+    <style>
+        #react-root {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="website.html">
+            <img src="eci-logo.png" alt="Parliament">
+        </a>
+        <div class="nav">
+            <a href="services.html">Services</a>
+            <a href="results.html">Results</a>
+            <a href="candidate.html">Candidates</a>
+            <a href="login.html">Login</a>
+        </div>
+    </div>
+    
+    <div class="news-bar">
+        <div class="news-content">
+            <span>LATEST:</span> Voter registration deadline is approaching on June 30th, 2025. Register now to exercise your democratic right! • National Voters' Day celebration on January 25th in all district offices • New online voter verification portal launched • Special registration camps for senior citizens and differently-abled voters this weekend
+        </div>
+    </div>
+
+    <!-- React root element -->
+    <div id="react-root">
+        <div class="loading">Loading election results...</div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About ECI</h3>
+                <p>The Election Commission of India is an autonomous constitutional authority responsible for administering election processes in India.</p>
+                <p>Established in 1950, it ensures free and fair elections across the country.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="registraiton.html"><i class="fas fa-chevron-right"></i> Voter Registration</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> Election Schedule</a>
+                <a href="candidate.html"><i class="fas fa-chevron-right"></i> Candidate List</a>
+                <a href="results.html"><i class="fas fa-chevron-right"></i> Results Archive</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Nirvachan Sadan, Ashoka Road, New Delhi</p>
+                <p><i class="fas fa-phone"></i> 011-23717391</p>
+                <p><i class="fas fa-envelope"></i> info@eci.gov.in</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Election Commission of India. All Rights Reserved.
+        </div>
+    </div>  
+
+    <!-- Load the React component -->
+    <script type="text/babel" src="js/results-react.js"></script>
+</body>
+</html>

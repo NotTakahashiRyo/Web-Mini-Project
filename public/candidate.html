@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Commission of India</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap');
+
+        :root {
+            --primary-color: #800000;
+            --primary-dark: #660000;
+            --primary-light: #ffebee;
+            --accent-color: #ffc107;
+            --text-dark: #333;
+            --text-light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+
+            --primary: #800000; 
+            --primary-dark: #660000; 
+            --secondary: #ffcc00; 
+            --accent: #003366; 
+            --light: #f8f9fa; 
+            --dark: #212529; 
+            --success: #28a745; 
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #f8f6f2;
+        }
+
+        .header {
+            background-color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header img {
+            height: 60px;
+            width: auto;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav a {
+            color: #800000;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav a:hover { 
+        background-color: var(--primary-light);
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 70%;
+        }
+
+        .news-bar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .news-content {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: scroll 20s linear infinite;
+        }
+
+        .news-content span {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            background-color: var(--secondary);
+            color: var(--primary);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background-color: #ffd633;
+        }
+
+        .main-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .candidates-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 50px;
+        }
+
+        .party {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .party:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .party::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .party:hover::before {
+            width: 8px;
+            background: var(--accent);
+        }
+
+        .party h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .party h3::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .party-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            transition: transform 0.5s ease;
+        }
+
+        .party:hover .party-logo {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .candidates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .candidate {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .candidate:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .candidate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .candidate:hover::before {
+            height: 8px;
+            background: var(--accent);
+        }
+
+        .candidate-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+            margin: 0 auto 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .candidate:hover .candidate-img {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .candidate h4 {
+            font-size: 1.2rem;
+            margin: 10px 0 5px;
+            color: var(--dark);
+        }
+
+        .candidate p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .radio-container {
+            position: relative;
+            margin-top: 15px;
+        }
+
+        .radio-container input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .radio-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .radio-container input[type="radio"]:checked + .radio-label {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(128, 0, 0, 0.3);
+        }
+
+        .vote-btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .vote-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vote-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+
+        .vote-btn:active {
+            transform: translateY(1px);
+        }
+
+        .vote-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .vote-btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .logo-container {
+                margin-bottom: 15px;
+            }
+
+            .nav { 
+                margin-top: 15px; 
+                flex-wrap: wrap; 
+                justify-content: center; 
+                gap: 15px; 
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .candidates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-section {
+                text-align: center;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating animation for party logos */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="website.html">
+            <img src="eci-logo.png" alt="Parliament">
+        </a>
+        <div class="nav">
+            <a href="services.html">Services</a>
+            <a href="results.html">Results</a>
+            <a href="candidate.html">Candidates</a>
+            <a href="login.html">Login</a>
+        </div>
+    </div>
+
+    <div class="news-bar">
+        <div class="news-content">
+            <span>LATEST:</span> Voter registration deadline is approaching on June 30th, 2025. Register now to exercise your democratic right! • National Voters' Day celebration on January 25th in all district offices • New online voter verification portal launched • Special registration camps for senior citizens and differently-abled voters this weekend
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1 class="fade-in">Your Vote, Your Voice</h1>
+        <p class="fade-in">Participate in the world's largest democracy. Every vote counts in shaping India's future.</p>
+        <a href="registraiton.html">
+            <button class="cta-button slide-up"><i class="fas fa-user-plus"></i> Register to Vote</button>
+        </a>
+    </div>
+
+    <div class="main-container">
+        <div class="section-title">
+            <h2>Election Candidates 2023</h2>
+        </div>
+        
+        <div class="candidates-container slide-up">
+            <div class="party">
+                
+                <h3>Party A</h3>
+                <div class="candidates-grid">
+                    <div class="candidate">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Rahul Sharma" class="candidate-img">
+                        <h4>Rahul Sharma</h4>
+                        <p>Candidate for Bangalore North</p>
+                        <div class="radio-container">
+                            <input type="radio" id="candidate1" name="candidate" value="Rahul Sharma">
+                            <label for="candidate1" class="radio-label">Select</label>
+                        </div>
+                    </div>
+                    <div class="candidate">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Neha Verma" class="candidate-img">
+                        <h4>Neha Verma</h4>
+                        <p>Candidate for Mumbai South</p>
+                        <div class="radio-container">
+                            <input type="radio" id="candidate3" name="candidate" value="Neha Verma">
+                            <label for="candidate3" class="radio-label">Select</label>
+                        </div>
+                    </div>
+                    <div class="candidate">
+                        <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1668&q=80" alt="Amit Patel" class="candidate-img">
+                        <h4>Amit Patel</h4>
+                        <p>Candidate for Ahmedabad West</p>
+                        <div class="radio-container">
+                            <input type="radio" id="candidate4" name="candidate" value="Amit Patel">
+                            <label for="candidate4" class="radio-label">Select</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="party">
+                <h3>Party B</h3>
+                <div class="candidates-grid">
+                    <div class="candidate">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80" alt="Sneha Rao" class="candidate-img">
+                        <h4>Sneha Rao</h4>
+                        <p>Candidate for Delhi Central</p>
+                        <div class="radio-container">
+                            <input type="radio" id="candidate5" name="candidate" value="Sneha Rao">
+                            <label for="candidate5" class="radio-label">Select</label>
+                        </div>
+                    </div>
+                    <div class="candidate">
+                        <img src="https://images.unsplash.com/photo-1542190891-2093d38760f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Manish Yadav" class="candidate-img">
+                        <h4>Manish Yadav</h4>
+                        <p>Candidate for Lucknow East</p>
+                        <div class="radio-container">
+                            <input type="radio" id="candidate6" name="candidate" value="Manish Yadav">
+                            <label for="candidate6" class="radio-label">Select</label>
+                        </div>
+                    </div>
+                    <div class="candidate">
+                        <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=772&q=80" alt="Priyanka Singh" class="candidate-img">
+                        <h4>Priyanka Singh</h4>
+                        <p>Candidate for Kolkata North</p>
+                        <div class="radio-container">
+                            <input type="radio" id="candidate7" name="candidate" value="Priyanka Singh">
+                            <label for="candidate7" class="radio-label">Select</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="party">
+                <h3>Party C</h3>
+                <div class="candidates-grid">
+                    <div class="candidate">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Rajesh Kumar" class="candidate-img">
+                        <h4>Rajesh Kumar</h4>
+                        <p>Candidate for Chandigarh</p>
+                        <div class="radio-container">
+                            <input type="radio" id="candidate8" name="candidate" value="Rajesh Kumar">
+                            <label for="candidate8" class="radio-label">Select</label>
+                        </div>
+                    </div>
+                    <div class="candidate">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" alt="Sunita Reddy" class="candidate-img">
+                        <h4>Sunita Reddy</h4>
+                        <p>Candidate for Hyderabad</p>
+                        <div class="radio-container">
+                            <input type="radio" id="candidate9" name="candidate" value="Sunita Reddy">
+                            <label for="candidate9" class="radio-label">Select</label>
+                        </div>
+                    </div>
+                    <div class="candidate">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Vikram Singh" class="candidate-img">
+                        <h4>Vikram Singh</h4>
+                        <p>Candidate for Jaipur</p>
+                        <div class="radio-container">
+                            <input type="radio" id="candidate10" name="candidate" value="Vikram Singh">
+                            <label for="candidate10" class="radio-label">Select</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="vote-btn-container">
+                    <button class="vote-btn" onclick="submitVote()"><i class="fas fa-vote-yea"></i> Submit Your Vote</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About ECI</h3>
+                <p>The Election Commission of India is an autonomous constitutional authority responsible for administering election processes in India.</p>
+                <p>Established in 1950, it ensures free and fair elections across the country.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="registraiton.html"><i class="fas fa-chevron-right"></i> Voter Registration</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> Election Schedule</a>
+                <a href="candidate.html"><i class="fas fa-chevron-right"></i> Candidate List</a>
+                <a href="results.html"><i class="fas fa-chevron-right"></i> Results Archive</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Nirvachan Sadan, Ashoka Road, New Delhi</p>
+                <p><i class="fas fa-phone"></i> 011-23717391</p>
+                <p><i class="fas fa-envelope"></i> info@eci.gov.in</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Election Commission of India. All Rights Reserved.
+        </div>
+    </div>
+
+    <script>
+        function submitVote() {
+            let selectedCandidate = document.querySelector('input[name="candidate"]:checked');
+            if (selectedCandidate) {
+                // Create a modal for confirmation
+                const modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0,0,0,0.7)';
+                modal.style.display = 'flex';
+                modal.style.justifyContent = 'center';
+                modal.style.alignItems = 'center';
+                modal.style.zIndex = '2000';
+                
+                const modalContent = document.createElement('div');
+                modalContent.style.backgroundColor = 'white';
+                modalContent.style.padding = '30px';
+                modalContent.style.borderRadius = '15px';
+                modalContent.style.textAlign = 'center';
+                modalContent.style.maxWidth = '500px';
+                modalContent.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+                
+                modalContent.innerHTML = `
+                    <h3 style="color: #800000; margin-bottom: 20px;">Confirm Your Vote</h3>
+                    <p>You are about to vote for <strong>${selectedCandidate.value}</strong>.</p>
+                    <p>This action cannot be undone.</p>
+                    <div style="margin-top: 30px; display: flex; justify-content: center; gap: 15px;">
+                        <button id="confirmVote" style="background: #800000; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer;">Confirm Vote</button>
+                        <button id="cancelVote" style="background: #f0f0f0; color: #333; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer;">Cancel</button>
+                    </div>
+                `;
+                
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+                
+                document.getElementById('confirmVote').addEventListener('click', function() {
+                    modal.style.display = 'none';
+                    // Show success message
+                    const success = document.createElement('div');
+                    success.style.position = 'fixed';
+                    success.style.bottom = '20px';
+                    success.style.right = '20px';
+                    success.style.backgroundColor = '#28a745';
+                    success.style.color = 'white';
+                    success.style.padding = '15px 25px';
+                    success.style.borderRadius = '5px';
+                    success.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                    success.style.zIndex = '2000';
+                    success.style.animation = 'slideUp 0.5s ease-out';
+                    success.innerHTML = '<i class="fas fa-check-circle"></i> Your vote has been successfully submitted!';
+                    document.body.appendChild(success);
+                    
+                    // Remove after 5 seconds
+                    setTimeout(() => {
+                        success.style.animation = 'fadeOut 0.5s ease-out';
+                        setTimeout(() => success.remove(), 500);
+                    }, 5000);
+                });
+                
+                document.getElementById('cancelVote').addEventListener('click', function() {
+                    modal.style.display = 'none';
+                    modal.remove();
+                });
+            } else {
+                alert('Please select a candidate to vote.');
+            }
+        }
+
+        // Add animation to elements when they come into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('slide-up');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.party, .section-title').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Commission of India</title>
+    <link rel="stylesheet" href="styles_website.css">
+</head>
+<body>
+    <div class="header">
+        <a href="website.html">
+            <img src="eci-logo.png" alt="Parliament">
+        </a>
+        <div class="nav">
+            <a href="services.html">Services</a>
+            <a href="results.html">Results</a>
+            <a href="candidate.html">Candidates</a>
+
+            <a href="login.html">Login</a>
+        </div>
+    </div>
+    
+    <div class="news-bar">
+        <div class="news-text">
+            Latest Updates: Voter registration deadline is approaching. Make sure to register before the end of the month! This segment is extended as a placeholder to extend this marquee text
+        </div>
+    </div>
+
+    <div class="registration-container">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="aadharNumber" placeholder="Aadhar Card Number" required>
+            <input type="password" name="password" placeholder="Create Password" required>
+            <button type="submit">Register</button>
+        </form>
+        
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2025 Election Commission of India</p>
+    </div>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: e.target.name.value,
+                email: e.target.email.value,
+                password: e.target.password.value,
+                aadharNumber: e.target.aadharNumber.value
+            };
+        
+            try {
+                const response = await fetch('http://localhost:5000/api/users/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('Registration successful! You can now login.');
+                    window.location.href = 'login.html';
+                } else {
+                    alert(data.error || 'Registration failed. Please try again.');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                alert('An error occurred. Please check console for details.');
+            }
+        });
+        </script>
+</body>
+</html>
