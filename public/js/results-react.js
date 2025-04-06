@@ -77,6 +77,9 @@ function ElectionResults() {
                 // Get chart context
                 const ctx = chartRef.current.getContext('2d');
                 
+                // Check if we're on mobile
+                const isMobile = window.innerWidth <= 768;
+                
                 // Prepare chart data
                 const data = {
                     labels: result.parties.map(party => party.name),
@@ -87,7 +90,7 @@ function ElectionResults() {
                     }]
                 };
                 
-                // Create new chart
+                // Create new chart with mobile-specific options
                 chartInstance.current = new Chart(ctx, {
                     type: 'pie',
                     data: data,
@@ -96,10 +99,12 @@ function ElectionResults() {
                         maintainAspectRatio: false,
                         plugins: {
                             legend: {
-                                position: 'right',
+                                position: isMobile ? 'bottom' : 'right',
                                 labels: {
+                                    boxWidth: isMobile ? 12 : 20,
+                                    padding: isMobile ? 10 : 15,
                                     font: {
-                                        size: 14,
+                                        size: isMobile ? 12 : 14,
                                         family: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
                                     }
                                 }
@@ -128,6 +133,23 @@ function ElectionResults() {
             }
         };
     }, [result]);
+
+    // Window resize handler for responsive chart
+    useEffect(() => {
+        const handleResize = () => {
+            if (chartRef.current && chartInstance.current) {
+                // Update chart options based on screen size
+                const isMobile = window.innerWidth <= 768;
+                chartInstance.current.options.plugins.legend.position = isMobile ? 'bottom' : 'right';
+                chartInstance.current.options.plugins.legend.labels.boxWidth = isMobile ? 12 : 20;
+                chartInstance.current.options.plugins.legend.labels.font.size = isMobile ? 12 : 14;
+                chartInstance.current.update();
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     if (loading) {
         return (
@@ -178,32 +200,34 @@ function ElectionResults() {
 
                 <div className="results-table-wrapper">
                     <h3>Vote Breakdown</h3>
-                    <table className="results-table">
-                        <thead>
-                            <tr>
-                                <th>Party</th>
-                                <th>Votes</th>
-                                <th>Percentage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {result.parties.map(party => (
-                                <tr key={party.name}>
-                                    <td style={{ color: party.color }}>
-                                        <span className="party-color" style={{ backgroundColor: party.color }}></span>
-                                        {party.name}
-                                    </td>
-                                    <td>{party.votes.toLocaleString()}</td>
-                                    <td>{((party.votes / result.totalVotes) * 100).toFixed(1)}%</td>
+                    <div className="table-responsive">
+                        <table className="results-table">
+                            <thead>
+                                <tr>
+                                    <th>Party</th>
+                                    <th>Votes</th>
+                                    <th>Percentage</th>
                                 </tr>
-                            ))}
-                            <tr className="total-row">
-                                <td><strong>Total Votes</strong></td>
-                                <td><strong>{result.totalVotes.toLocaleString()}</strong></td>
-                                <td><strong>100%</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {result.parties.map(party => (
+                                    <tr key={party.name}>
+                                        <td style={{ color: party.color }}>
+                                            <span className="party-color" style={{ backgroundColor: party.color }}></span>
+                                            {party.name}
+                                        </td>
+                                        <td>{party.votes.toLocaleString()}</td>
+                                        <td>{((party.votes / result.totalVotes) * 100).toFixed(1)}%</td>
+                                    </tr>
+                                ))}
+                                <tr className="total-row">
+                                    <td><strong>Total Votes</strong></td>
+                                    <td><strong>{result.totalVotes.toLocaleString()}</strong></td>
+                                    <td><strong>100%</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -282,6 +306,11 @@ style.textContent = `
         height: 400px;
         position: relative;
     }
+    
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 
     .results-table {
         width: 100%;
@@ -358,13 +387,66 @@ style.textContent = `
         100% { transform: rotate(360deg); }
     }
 
+    /* Responsive styles */
     @media (max-width: 768px) {
+        .election-results-container {
+            padding: 10px;
+        }
+        
         .results-content {
             flex-direction: column;
         }
         
+        .chart-wrapper, .results-table-wrapper {
+            min-width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
         .chart-container {
             height: 300px;
+        }
+        
+        .results-table {
+            font-size: 14px;
+        }
+        
+        .results-table th, .results-table td {
+            padding: 8px 5px;
+        }
+        
+        .year-selector select {
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+        
+        .loading-container {
+            padding: 30px;
+        }
+        
+        .error-message {
+            padding: 20px;
+        }
+    }
+    
+    /* Very small screens */
+    @media (max-width: 480px) {
+        .year-selector h2 {
+            font-size: 1.5rem;
+        }
+        
+        .chart-wrapper h3, .results-table-wrapper h3 {
+            font-size: 1.2rem;
+        }
+        
+        .results-table {
+            font-size: 12px;
+        }
+        
+        .party-color {
+            width: 8px;
+            height: 8px;
         }
     }
 `;

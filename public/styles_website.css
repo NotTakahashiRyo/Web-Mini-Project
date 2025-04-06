@@ -978,3 +978,249 @@ display: flex;
 height:30px;
 margin: 5px;
 }
+/* Mobile Responsiveness Enhancements to add to styles_website.css */
+
+/* Global responsive adjustments */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        padding: 15px;
+        text-align: center;
+    }
+    
+    .header img {
+        margin-bottom: 10px;
+    }
+    
+    .nav {
+        margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .nav a {
+        padding: 8px 12px;
+        margin: 2px;
+        font-size: 14px;
+    }
+    
+    .box-link {
+        width: 90%;
+        margin: 10px auto;
+    }
+    
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .feature-card {
+        width: 100%;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .footer-section {
+        width: 100%;
+        padding: 0 20px;
+        margin-bottom: 30px;
+    }
+
+    .footer-section h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+/* Login and Registration specific fixes */
+@media (max-width: 768px) {
+    .login-container, .registration-container {
+        width: 95%;
+        padding: 15px;
+        margin: 20px auto;
+    }
+    
+    .login-container input, .registration-container input {
+        width: 100%;
+    }
+}
+
+/* Dashboard specific fixes */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 15px;
+        margin: 20px auto;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-title {
+        margin-bottom: 15px;
+    }
+    
+    .voter-badge {
+        margin-top: 10px;
+    }
+    
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons, .form-buttons, .modal-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .action-button {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+}
+
+/* Results page specific fixes */
+@media (max-width: 768px) {
+    .election-results-container {
+        padding: 10px;
+    }
+    
+    .results-content {
+        flex-direction: column;
+    }
+    
+    .chart-wrapper, .results-table-wrapper {
+        min-width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+    
+    .results-table {
+        font-size: 14px;
+    }
+    
+    .results-table th, .results-table td {
+        padding: 8px 5px;
+    }
+    
+    .year-selector select {
+        width: 90%;
+    }
+}
+
+/* Candidates page specific fixes */
+@media (max-width: 768px) {
+    .candidates-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .candidate {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .party {
+        padding: 15px;
+    }
+    
+    .vote-btn {
+        width: 100%;
+    }
+}
+
+/* Additional fixes for very small screens */
+@media (max-width: 480px) {
+    .header img {
+        height: 50px;
+    }
+    
+    .nav a {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero p {
+        font-size: 0.9rem;
+    }
+    
+    .footer-section h3 {
+        font-size: 1.1rem;
+    }
+    
+    .news-content {
+        font-size: 13px;
+    }
+    
+    .feature-card {
+        padding: 15px;
+    }
+}
+
+/* News bar fix to make it display properly on mobile */
+.news-bar {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+}
+
+.news-content {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Table improvements for mobile */
+@media (max-width: 600px) {
+    .results-table {
+        font-size: 12px;
+    }
+    
+    .results-table th {
+        padding: 8px 4px;
+    }
+    
+    .results-table td {
+        padding: 6px 4px;
+    }
+}
+
+/* Fix for React root container on mobile */
+@media (max-width: 768px) {
+    #react-root {
+        margin: 15px auto;
+        padding: 10px;
+    }
+}
